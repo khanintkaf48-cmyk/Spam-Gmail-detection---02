@@ -1,0 +1,7 @@
+credentials.json
+token.json
+notify_config.json
+*.db
+uploads/
+.env
+__pycache__/

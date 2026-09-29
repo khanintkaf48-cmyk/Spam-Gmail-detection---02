@@ -1,0 +1,8 @@
+Flask>=3.0,<4.0
+scikit-learn>=1.5,<2.0
+gunicorn
+
+# Optional: only needed if you want the "Gmail Inbox" auto-fetch tab.
+# The app works perfectly fine without these installed.
+# google-auth-oauthlib>=1.2,<2.0
+# google-api-python-client>=2.140,<3.0

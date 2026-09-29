@@ -1,0 +1,62 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ThreatLens AI</title><link rel="stylesheet" href="/static/style.css"></head><body>
+<div class="app"><aside><div class="brand"><span>◈</span><div><b>ThreatLens</b><small>AI FORENSIC INTELLIGENCE</small></div></div><nav>
+<button class="active" data-page="dashboard">⌂ Dashboard</button>
+<button data-page="analyzer">✉ Email Analyzer</button>
+<button data-page="gmail">📥 Gmail Inbox</button>
+<button data-page="alerts">🔔 Live Alerts <span id="alertBadge" class="badge-count hidden">0</span></button>
+<button data-page="ioc">⌁ IOC Intelligence</button>
+<button data-page="geo">◎ Geo Intelligence</button>
+<button data-page="reports">▤ Forensic Reports</button>
+</nav><div class="status"><i></i> SYSTEM ONLINE</div></aside>
+<main><header><div><span class="eyebrow">SECURITY OPERATIONS CENTER</span><h1 id="title">Threat Detection Dashboard</h1></div><div class="pill">● AI ENGINE ACTIVE</div></header>
+
+<section id="dashboard" class="page active">
+  <div class="hero"><div><h2>Detect. Investigate. Respond.</h2><p>Analyze suspicious emails using an ensemble ML model, indicators of compromise, and forensic evidence.</p><button class="primary" onclick="go('analyzer')">Start Analysis →</button></div><div class="orb">AI</div></div>
+  <div class="cards"><div><small>ANALYSES</small><strong id="statAnalyses">0</strong></div><div><small>THREATS FOUND</small><strong id="statThreats">0</strong></div><div><small>AVG RISK</small><strong id="statRisk">0%</strong></div><div><small>ENGINE</small><strong>ML + RULES</strong></div></div>
+  <div class="grid2">
+    <div class="panel"><div class="panelhead"><h3>Recent Investigations</h3><button onclick="loadHistory()">Refresh</button></div><div id="recent" class="tablewrap">No investigations yet.</div></div>
+    <div class="panel"><div class="panelhead"><h3>Risk Trend</h3></div><canvas id="trendChart" width="420" height="220"></canvas></div>
+  </div>
+</section>
+
+<section id="analyzer" class="page">
+  <div class="sectionhead"><div><span class="eyebrow">01 / ANALYSIS</span><h2>Email Threat Analyzer</h2></div><button class="secondary" onclick="demo()">Load Demo Threat</button></div>
+  <div class="grid2">
+    <div class="panel form"><label>Subject<input id="subject" placeholder="Email subject"></label><label>From<input id="sender" placeholder="sender@example.com"></label><label>Reply-To<input id="reply" placeholder="optional"></label><label>Email Body<textarea id="body" placeholder="Paste suspicious email content here..."></textarea></label>
+    <div class="actions"><button class="primary" onclick="analyzeEmail()">Analyze Threat</button><button onclick="clearForm()">Clear</button></div>
+    <div class="upload">Or upload an <b>.eml</b> file <input type="file" id="eml" accept=".eml"><button onclick="uploadEml()">Analyze EML</button></div></div>
+    <div class="panel result"><div id="empty"><div class="bigicon">⌁</div><h3>Awaiting analysis</h3><p>Submit an email to generate AI risk and forensic indicators.</p></div><div id="result" class="hidden"></div></div>
+  </div>
+</section>
+
+<section id="gmail" class="page">
+  <div class="sectionhead"><div><span class="eyebrow">05 / LIVE INBOX</span><h2>Gmail Inbox</h2></div></div>
+  <div class="panel" id="gmailPanel">Checking Gmail connection...</div>
+</section>
+
+<section id="alerts" class="page">
+  <div class="sectionhead"><div><span class="eyebrow">06 / LIVE MONITORING</span><h2>Live Alerts</h2></div><button class="secondary" onclick="dismissAllAlerts()">Mark all as read</button></div>
+  <p class="muted">While connected to Gmail, ThreatLens checks your inbox in the background and sounds an alarm on your PC the moment a high-risk email arrives — even if this tab isn't open. Anything flagged shows up here so you can review it whenever you're back.</p>
+
+  <div class="panel form" id="notifyPanel" style="margin-bottom:18px">
+    <h3>Also email me the alert</h3>
+    <p class="muted">Optional — in addition to the PC alarm, get an email to yourself for every high-risk detection. Needs a Gmail <b>App Password</b> (not your normal password) — see README.txt for how to generate one.</p>
+    <label>Your Gmail address<input id="notifyEmail" placeholder="you@gmail.com"></label>
+    <label>Gmail App Password<input id="notifyAppPassword" type="password" placeholder="16-character app password"></label>
+    <label>Send alerts to (optional — defaults to the address above)<input id="notifyTo" placeholder="optional"></label>
+    <div class="actions"><button class="primary" onclick="saveNotifyConfig(true)">Save &amp; enable</button><button onclick="saveNotifyConfig(false)">Disable</button></div>
+  </div>
+
+  <div class="panel" id="alertsPanel">Loading...</div>
+</section>
+
+<section id="ioc" class="page"><div class="sectionhead"><div><span class="eyebrow">02 / INDICATORS</span><h2>IOC Intelligence</h2></div></div><div class="panel"><p class="muted">Indicators extracted from the latest analysis.</p><div id="iocbox" class="iocbox">Run an email analysis first.</div></div></section>
+
+<section id="geo" class="page"><div class="sectionhead"><div><span class="eyebrow">03 / GEO</span><h2>IP Geolocation</h2></div></div><div class="panel geo"><div class="geoform"><input id="geoip" placeholder="Enter public IP e.g. 8.8.8.8"><button class="primary" onclick="lookupGeo()">Lookup IP</button></div><div id="geobox">Geo results will appear here. Location is approximate.</div></div></section>
+
+<section id="reports" class="page"><div class="sectionhead"><div><span class="eyebrow">04 / FORENSICS</span><h2>Forensic Reports</h2></div></div><div class="panel"><div id="reportsbox">Loading reports...</div></div></section>
+
+</main></div>
+<div id="toast" class="toast hidden"></div>
+<script src="/static/script.js"></script>
+</body></html>
